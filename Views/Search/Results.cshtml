@@ -1,0 +1,83 @@
+﻿@model myiotprojects.Models.SearchResultModel
+
+<div>
+    <div class="container-fluid mt-100">
+        <div class="d-flex flex-wrap justify-content-between">
+            <div class="col-12 col-md-3 p-0 mb-3">
+                <form asp-controller="Search" asp-action="Search" method="post">
+                    <input asp-for="SearchQuery" type="text" class="form-control" placeholder="Search..." required>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="searchQuery">
+        <span class="resultFor">Search Results For: @Model.SearchQuery </span>
+    </div>
+    <div class="row index" style="margin-top:8px;">
+        @if (!Model.EmptySearchResults)
+        {
+            <table class="table table-hover table-bordered">
+                <tbody>
+                    @foreach (var post in Model.Posts)
+                    {
+                        <tr>
+                            <td>
+                                <div>
+                                    <div>
+                                        <a class="searchTitle" asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <span>
+                                                <a class="searchAuthor" asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID">
+                                                    @post.Author
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="forumPostCount">
+                                    Replies: @post.RepliesCount
+                                </div>
+                            </td>
+                            <td>
+                                <div class="postDate">
+                                    @post.DatePosted
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        }
+        else
+        {
+            <div class="noPosts">
+                <i class="material-icons md-72">question_answer</i>
+                <h3>
+                    There is no result found for "@Model.SearchQuery" <br />
+                </h3>
+            </div>
+        }
+    </div>
+
+    <nav>
+        <ul class="pagination">
+            @for (int i = 0; i < Model.NumberOfPages; i++)
+            {
+                <li class="page-item"><a class="page-link" asp-controller="Search" asp-action="Results" asp-route-searchQuery="@Model.SearchQuery" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@section Scripts{ 
+<script>
+    function clearThis(target) {
+        target.value = "";
+    }
+</script>
+}
