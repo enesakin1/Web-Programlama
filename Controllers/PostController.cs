@@ -106,7 +106,7 @@ namespace myiotprojects.Controllers
                 User = user
             };
         }
-
+        [Authorize]
         private IEnumerable<PostReplyModel> BuildPostReplies(IEnumerable<PostReply> replies, int page)
         {
             return replies.Select(reply => new PostReplyModel

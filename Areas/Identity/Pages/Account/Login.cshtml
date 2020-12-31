@@ -1,40 +1,41 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model LoginModel
 @{
     Layout = "/Areas/Identity/Pages/AuthLayout.cshtml";
 }
-    <div id="login">
-        <div class="container">
-            <div id="login-row" class="row justify-content-center align-items-center">
-                <div id="login-column" class="col-md-6">
-                    <div id="login-box" class="col-md-12">
-                        <form id="login-form" class="form" action="" method="post">
-                            <h3 class="text-center text-info">Login</h3>
-                            <div asp-validation-summary="All" class="text-danger"></div>
-                            <div class="form-group">
-                                <label asp-for="Input.Email" class="text-info"></label><br>
-                                <input asp-for="Input.Email" class="form-control">
-                                <span asp-validation-for="Input.Email" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Input.Password" class="text-info"></label><br>
-                                <input asp-for="Input.Password" class="form-control">
-                                <span asp-validation-for="Input.Password" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="Input.RememberMe" class="text-info"></label>
-                                <input asp-for="Input.RememberMe" ><br>
-                                <input type="submit" class="btn btn-info btn-md" value="Login">
-                            </div>
-                            <div id="register-link" class="text-right">
-                                <a href="/Identity/Account/Register" class="text-info">Register here</a>
-                            </div>
-                        </form>
-                    </div>
+<div id="login">
+    <div class="container">
+        <div id="login-row" class="row justify-content-center align-items-center">
+            <div id="login-column" class="col-md-6">
+                <div id="login-box" class="col-md-12">
+                    <form id="login-form" class="form" action="" method="post">
+                        <h3 class="text-center text-info">@localizer["Login"]</h3>
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Input.Email" class="text-info"></label><br>
+                            <input asp-for="Input.Email" class="form-control">
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info">@localizer["Password"]</label><br>
+                            <input asp-for="Input.Password" class="form-control">
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="text-info">@localizer["RememberMe"]</label>
+                            <input asp-for="Input.RememberMe"><br>
+                            <input type="submit" class="btn btn-info btn-md" value="@localizer["Login"]">
+                        </div>
+                        <div id="register-link" class="text-right">
+                            <a href="/Identity/Account/Register" class="text-info">@localizer["RegisterHere"]</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

@@ -20,11 +20,11 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>@ViewData["Manage"] <b>@ViewData["Posts"]</b></h2>
+                        <h2>@ViewData["Manage"] <b>@ViewData["Roles"]</b></h2>
                     </div>
                     <div class="col-sm-6">
                         <form asp-controller="Admin" asp-action="CreateRole" method="get">
-                            <button type="submit" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>@ViewData["Create"] @ViewData["Role"]</span></button>
+                            <button type="submit" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>@ViewData["Create"]</span></button>
                         </form>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
         <div class="modal-content">
             <form asp-controller="Admin" asp-action="RoleDelete" method="post">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete User</h4>
+                    <h4 class="modal-title">@ViewData["Delete"] @ViewData["Role"]</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">

@@ -69,7 +69,7 @@
         <div class="modal-content">
             <form asp-controller="Admin" asp-action="PostDelete" method="post">
                 <div class="modal-header">
-                    <h4 class="modal-title">Delete User</h4>
+                    <h4 class="modal-title">@ViewData["Delete"] @ViewData["Post"]</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">

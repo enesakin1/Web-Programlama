@@ -49,6 +49,7 @@ namespace myiotprojects.Controllers
             };
             return View(model);
         }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> AddPhoto(string userid, string photourl)
         {

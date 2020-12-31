@@ -46,25 +46,25 @@ namespace myiotprojects.Areas.Identity.Pages.Account
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessageResourceName = "EmailRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+            [EmailAddress(ErrorMessageResourceName = "EmailType", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
             [Display(Name = "Email")]
             public string Email { get; set; }
 
-            [Required]
-            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Required(ErrorMessageResourceName = "UsernameRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+            [StringLength(20, ErrorMessageResourceName = "UsernameValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors), MinimumLength = 4)]
             [Display(Name = "Username")]
             public string Nickname { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [Required(ErrorMessageResourceName = "PasswordRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+            [StringLength(100, ErrorMessageResourceName = "PasswordValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors), MinimumLength = 2)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
-            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            [Compare("Password", ErrorMessageResourceName = "ConfirmPasswordValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
             public string ConfirmPassword { get; set; }
         }
 

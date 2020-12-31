@@ -24,7 +24,7 @@
                     </div>
                     <div class="col-sm-6">
                         <form asp-controller="Admin" asp-action="CreateUser" method="get">
-                            <button type="submit" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>@ViewData["Create"] @ViewData["User"]</span></button>
+                            <button type="submit" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>@ViewData["Create"]</span></button>
                         </form>
                     </div>
                 </div>
@@ -50,7 +50,7 @@
                             <td>@user.Created</td>
                             <td>
                                 <form asp-controller="Admin" asp-action="ManageUserRole" asp-route-userid="@user.UserId" >
-                                    <button class="btn btn-info" type="submit">Add/Delete</button>
+                                    <button class="btn btn-info" type="submit">@ViewData["Add/Delete"]</button>
                                 </form>
                             </td>
                             <td>

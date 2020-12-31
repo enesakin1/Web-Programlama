@@ -39,6 +39,7 @@ namespace myiotprojects.Controllers
             ViewData["Actions"] = _localizer["Actions"];
             ViewData["Create"] = _localizer["Create"];
             ViewData["User"] = _localizer["User"];
+            ViewData["Users"] = _localizer["Users"];
             ViewData["Add/Delete"] = _localizer["Add/Delete"];
             ViewData["Edit"] = _localizer["Edit"];
             ViewData["Delete"] = _localizer["Delete"];
@@ -75,6 +76,7 @@ namespace myiotprojects.Controllers
             ViewData["Edit"] = _localizer["Manage"];
             ViewData["User"] = _localizer["User"];
             ViewData["Nickname"] = _localizer["Nickname"];
+            ViewData["Save"] = _localizer["Save"];
             ViewData["ProfileImageUrl"] = _localizer["ProfileImageUrl"];
             var user = _userService.GetById(userid);
             var selecteduser = new UserModel()
@@ -161,6 +163,7 @@ namespace myiotprojects.Controllers
             ViewData["Undone"] = _localizer["Undone"];
             ViewData["Cancel"] = _localizer["Cancel"];
             ViewData["Post"] = _localizer["Post"];
+            ViewData["Actions"] = _localizer["Actions"];
 
             var allPosts = _postService.GetAll();
             var post = _postService.GetAllWithPage(page);
@@ -239,6 +242,7 @@ namespace myiotprojects.Controllers
             ViewData["Undone"] = _localizer["Undone"];
             ViewData["Cancel"] = _localizer["Cancel"];
             ViewData["Reply"] = _localizer["Reply"];
+            ViewData["Actions"] = _localizer["Actions"];
 
             var allReplies = _postService.GetAllReplies();
             var reply = _postService.GetAllRepliesWithPage(page);
@@ -302,6 +306,7 @@ namespace myiotprojects.Controllers
             ViewData["Sure"] = _localizer["Sure"];
             ViewData["Undone"] = _localizer["Undone"];
             ViewData["Cancel"] = _localizer["Cancel"];
+            ViewData["Actions"] = _localizer["Actions"];
 
             var allRoles = _userService.GetAllRoles();
             var role = _userService.GetAllRolesWithPages(page);

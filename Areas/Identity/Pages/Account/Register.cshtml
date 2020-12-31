@@ -1,5 +1,7 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model RegisterModel
+
 @{
     Layout = "/Areas/Identity/Pages/AuthLayout.cshtml";
 }
@@ -9,7 +11,7 @@
             <div id="signup-column" class="col-md-6">
                 <div id="signup-box" class="col-md-12">
                     <form id="signup-form" class="form" action="" method="post">
-                        <h3 class="text-center text-info">Sign up</h3>
+                        <h3 class="text-center text-info">@localizer["SignUp"]</h3>
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <div class="form-group">
                             <label asp-for="Input.Email" class="text-info"></label><br>
@@ -17,25 +19,25 @@
                             <span asp-validation-for="Input.Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Input.Nickname" class="text-info"></label><br>
+                            <label class="text-info">@localizer["Nickname"]</label><br>
                             <input asp-for="Input.Nickname" class="form-control">
                             <span asp-validation-for="Input.Nickname" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Input.Password" class="text-info"></label><br>
+                            <label class="text-info">@localizer["Password"]</label><br>
                             <input asp-for="Input.Password" class="form-control">
                             <span asp-validation-for="Input.Password" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Input.ConfirmPassword" class="text-info"></label><br>
+                            <label class="text-info">@localizer["ConfirmPassword"]</label><br>
                             <input asp-for="Input.ConfirmPassword" class="form-control">
                             <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-info btn-md" value="Submit">
+                            <input type="submit" class="btn btn-info btn-md" value="@localizer["Submit"]">
                         </div>
                         <div id="login-link" class="text-right">
-                            <a href="/Identity/Account/Login" class="text-info">Login here</a>
+                            <a href="/Identity/Account/Login" class="text-info">@localizer["LoginHere"]</a>
                         </div>
                     </form>
                 </div>
@@ -43,4 +45,4 @@
         </div>
     </div>
 </div>
-    <partial name="_ValidationScriptsPartial" />
+<partial name="_ValidationScriptsPartial" />

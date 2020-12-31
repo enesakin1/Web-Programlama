@@ -1,7 +1,8 @@
 ﻿@page
+@inject Microsoft.AspNetCore.Mvc.Localization.IViewLocalizer localizer
 @model EmailModel
 @{
-    ViewData["Title"] = "Manage Email";
+    ViewData["Title"] = localizer.GetString("Manage");
     ViewData["ActivePage"] = ManageNavPages.Email;
 }
 
@@ -13,19 +14,19 @@
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email"></label>
-                    <div class="input-group">
-                        <input asp-for="Email" class="form-control" disabled />
-                        <div class="input-group-append">
-                            <span class="input-group-text text-success font-weight-bold">✓</span>
-                        </div>
+                <div class="input-group">
+                    <input asp-for="Email" class="form-control" disabled />
+                    <div class="input-group-append">
+                        <span class="input-group-text text-success font-weight-bold">✓</span>
                     </div>
+                </div>
             </div>
             <div class="form-group">
-                <label asp-for="Input.NewEmail"></label>
+                <label>@localizer["New"]</label>
                 <input asp-for="Input.NewEmail" class="form-control" />
                 <span asp-validation-for="Input.NewEmail" class="text-danger"></span>
             </div>
-            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">Change email</button>
+            <button id="change-email-button" type="submit" asp-page-handler="ChangeEmail" class="btn btn-primary">@localizer["Change"]</button>
         </form>
     </div>
 </div>

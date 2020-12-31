@@ -9,10 +9,13 @@
 </head>
 <body class="bodysign">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
-            <div class="container justify-content-center align-items-center">
-                <a asp-area="" asp-controller="Home" asp-action="Index">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-3">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index">
                     <img style="width:55%" class="navbar-brand justify-content-lg-start" src="~/images/logo.png" />
+                </a>
+                <a class="nav-link">
+                    <partial name="_Culture" />
                 </a>
             </div>
         </nav>
