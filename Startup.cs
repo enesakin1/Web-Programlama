@@ -1,9 +1,12 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using myiotprojects.Areas.Identity.Data;
+using myiotprojects.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +28,8 @@ namespace myiotprojects
         {
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddScoped<IPost, PostService>();
+            services.AddScoped<IUser, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -46,6 +51,7 @@ namespace myiotprojects
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {
