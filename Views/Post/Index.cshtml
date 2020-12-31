@@ -1,0 +1,71 @@
+﻿@model myiotprojects.Models.PostIndexModel
+    <div class="container bg-white">
+        <div class="postTitle">
+            <a class="" style="font-size: x-large;">@Model.Title</a>
+        </div>
+        <div class="row index">
+            <div class="col-md-3">
+                <div class="AuthorImage" style="background-image: url(@Model.AuthorImageUrl)"></div>
+                <a asp-controller="Profile" asp-action="Detail" asp-route-id="@Model.AuthorId">@Model.AuthorName</a>
+                <br />
+                <span>@Model.Created</span>
+                @if (Model.IsAuthorAdmin)
+                {
+                    <span class="isAdmin">Admin</span>
+                }
+            </div>
+            <div class="col-md-9 postContentContainer">
+                @Html.Raw(Model.PostContent)
+            </div>
+        </div>
+        <div class="row" id="replyDivider"></div>
+
+        @if (Model.Replies.Any())
+        {
+            foreach (var reply in Model.Replies)
+            {
+                <br />
+                <div class="row index">
+                    <div class="col-md-3" replyAuthorContainer>
+                        <div class="AuthorImage" style="background-image: url(@reply.AuthorImageUrl)">
+                        </div>
+                        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@reply.AuthorId">
+                            @reply.AuthorName
+                        </a>
+                        <br />
+                        @if (reply.IsAuthorAdmin)
+                        {
+                            <div class="isAdmin">Admin</div>
+                            <br />
+                        }
+                        <span>@reply.Created</span>
+                    </div>
+                    <div class="col-md-9 replyContentContainer">
+                        <div>
+                            @Html.Raw(reply.ReplyContent)
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+
+        @if (User.Identity.IsAuthenticated)
+        {
+            <div class="row">
+                <span>
+                    <a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.Id" class="btn submitReply">
+                        Post Reply
+                    </a>
+                </span>
+            </div>
+        }
+        <br />
+        <nav>
+            <ul class="pagination">
+                @for (int i = 0; i < Model.NumberOfPage; i++)
+                {
+                    <li class="page-item"><a class="page-link" asp-controller="Post" asp-action="Index" asp-route-id="@Model.Id" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+                }
+            </ul>
+        </nav>
+    </div>
