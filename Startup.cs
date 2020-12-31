@@ -30,6 +30,7 @@ namespace myiotprojects
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddTransient<DataSeeder>();
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddScoped<IPost, PostService>();
@@ -51,7 +52,6 @@ namespace myiotprojects
                 }
                 );
 
-            services.AddTransient<DataSeeder>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,7 +68,7 @@ namespace myiotprojects
                 app.UseHsts();
             }
 
-            dataSeeder.SeedSuperUser();
+            dataSeeder.SeedSuperUser().Wait();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();

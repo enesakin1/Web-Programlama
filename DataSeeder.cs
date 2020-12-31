@@ -17,7 +17,7 @@ namespace myiotprojects
             _context = context;
         }
 
-        public Task SeedSuperUser()
+        public async Task SeedSuperUser()
         {
             var roleStore = new RoleStore<IdentityRole>(_context);
             var userStore = new UserStore<AppUser>(_context);
@@ -45,20 +45,18 @@ namespace myiotprojects
 
             if(!hasAdminRole)
             {
-                roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "admin" });
+                await roleStore.CreateAsync(new IdentityRole { Name = "Admin", NormalizedName = "admin" });
             }
 
             var hasSuperUser = _context.Users.Any(u => u.NormalizedUserName == user.UserName);
 
             if(!hasSuperUser)
             {
-                 userStore.CreateAsync(user);
-                 userStore.AddToRoleAsync(user, "Admin");
+                await userStore.CreateAsync(user);
+                await userStore.AddToRoleAsync(user, "Admin");
             }
 
-             _context.SaveChangesAsync();
-
-            return Task.CompletedTask;
+            await _context.SaveChangesAsync();
         }
 
     }
