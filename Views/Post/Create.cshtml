@@ -1,20 +1,23 @@
 ﻿@model myiotprojects.Models.NewPostModel
-    <div class="container" style="background-color:white;">
-        <form asp-action="AddPost" method="post" id="addPostForm">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            <div class="form-group">
-                <label>@ViewData["Title"]</label>
-                <input asp-for="Title" class="form-control" />
-                <span asp-validation-for="Title" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>@ViewData["Content"]</label>
-                <textarea asp-for="Content" class="form-control"></textarea>
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div style="display: flex; justify-content: flex-end; margin-right:20px;">
-                <button  type="submit" id="submitPostBtn" class="submitPost">@ViewData["SubmitPost"]</button>
-            </div>
-            
-        </form>
-    </div>
+@{
+    ViewData["Title"] = "Create Post";
+}
+<div class="container" style="background-color:white;">
+    <form asp-action="AddPost" method="post" id="addPostForm">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label>@ViewData["Title"]</label>
+            <input asp-for="Title" class="form-control" />
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>@ViewData["Content"]</label>
+            <textarea asp-for="Content" class="form-control"></textarea>
+            <span asp-validation-for="Content" class="text-danger"></span>
+        </div>
+        <div style="display: flex; justify-content: flex-end; margin-right:20px;">
+            <button type="submit" id="submitPostBtn" class="submitPost">@ViewData["SubmitPost"]</button>
+        </div>
+
+    </form>
+</div>

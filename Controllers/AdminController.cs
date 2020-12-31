@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using myiotprojects.Areas.Identity.Data;
 using myiotprojects.Models;
 using myiotprojects.Models.Admin;
@@ -26,6 +27,7 @@ namespace myiotprojects.Controllers
             _postService = postService;
             _localizer = localizer;
         }
+
         public ActionResult Index ()
         {
             return RedirectToAction("Users");

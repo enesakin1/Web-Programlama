@@ -2,6 +2,9 @@
 @using Microsoft.AspNetCore.Identity
 @using myiotprojects.Areas.Identity.Data
 @inject UserManager<AppUser> UserManager
+@{
+    ViewData["Title"] = "Profile";
+}
 @section Scripts{
     <script>
         $('#addPhotoModal').on('show.bs.modal', function (e) {
@@ -15,17 +18,17 @@
     </script>
 }
 <div class="container">
-    @if(User.Identity.IsAuthenticated)
+    @if (User.Identity.IsAuthenticated)
     {
         if (UserManager.GetUserAsync(User).Result.Id == Model.UserId)
         {
-        <form asp-area="Identity" asp-page="/Account/Manage/Email" method="get">
-            <button type="submit" class="btn btn-shadow btn-wide btn-primary">
-                <span class="btn-icon-wrapper pr-2 opacity-7">
-                    <i class="fa fa-plus fa-w-20"></i>
-                </span> @ViewData["Settings"]
-            </button>
-        </form>
+            <form asp-area="Identity" asp-page="/Account/Manage/Email" method="get">
+                <button type="submit" class="btn btn-shadow btn-wide btn-primary">
+                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                        <i class="fa fa-plus fa-w-20"></i>
+                    </span> @ViewData["Settings"]
+                </button>
+            </form>
         }
     }
     <div class="border-bottom bg-white mt-1 pt-md-3 pt-2">

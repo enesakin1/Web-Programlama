@@ -1,5 +1,7 @@
 ﻿@model myiotprojects.Models.SearchResultModel
-
+@{
+    ViewData["Title"] = "Search " + Model.SearchQuery;
+}
 <div class="container bg-white">
     <div class="mt-100">
         <div class="d-flex flex-wrap justify-content-between">
@@ -74,10 +76,10 @@
     </nav>
 </div>
 
-@section Scripts{ 
-<script>
-    function clearThis(target) {
-        target.value = "";
-    }
-</script>
+@section Scripts{
+    <script>
+        function clearThis(target) {
+            target.value = "";
+        }
+    </script>
 }

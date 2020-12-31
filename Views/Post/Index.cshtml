@@ -1,4 +1,7 @@
 ﻿@model myiotprojects.Models.PostIndexModel
+@{
+    ViewData["Title"] = Model.Title;
+}
     <div class="container bg-white">
         <div class="postTitle">
             <a style="font-size: x-large;">@Model.Title</a>

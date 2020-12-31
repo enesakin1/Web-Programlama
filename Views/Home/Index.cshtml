@@ -1,65 +1,67 @@
 ﻿@model myiotprojects.Models.HomeIndexModel
-
-    <div class="container mt-100">
-        <div class="d-flex flex-wrap justify-content-between">
-            <div>
-                <form asp-controller="Post" asp-action="Create" method="get">
-                    <button  type="submit" class="btn btn-shadow btn-wide btn-primary">
-                        <span class="btn-icon-wrapper pr-2 opacity-7">
-                            <i class="fa fa-plus fa-w-20"></i>
-                        </span> @ViewData["NewThread"]
-                    </button>
-                </form>
-            </div>
-            <div class="col-12 col-md-3 p-0 mb-3">
-                <form asp-controller="Search" asp-action="Search" method="post">
-                    <input asp-for="SearchQuery" type="text" class="form-control" placeholder="@ViewData["Search"]..." required>
-                </form>
-            </div>
+@{
+    ViewData["Title"] = "Home";
+}
+<div class="container mt-100">
+    <div class="d-flex flex-wrap justify-content-between">
+        <div>
+            <form asp-controller="Post" asp-action="Create" method="get">
+                <button type="submit" class="btn btn-shadow btn-wide btn-primary">
+                    <span class="btn-icon-wrapper pr-2 opacity-7">
+                        <i class="fa fa-plus fa-w-20"></i>
+                    </span> @ViewData["NewThread"]
+                </button>
+            </form>
         </div>
-        <div class="card mb-3">
-            <div class="card-header pl-0 pr-0">
-                <div class="row no-gutters w-100 align-items-center">
-                    <div class="col ml-3">@ViewData["Topics"]</div>
-                    <div class="col-4 text-muted">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col-4">@ViewData["Replies"]</div>
-                            <div class="col-8">@ViewData["Author"]</div>
-                        </div>
+        <div class="col-12 col-md-3 p-0 mb-3">
+            <form asp-controller="Search" asp-action="Search" method="post">
+                <input asp-for="SearchQuery" type="text" class="form-control" placeholder="@ViewData["Search"]..." required>
+            </form>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-header pl-0 pr-0">
+            <div class="row no-gutters w-100 align-items-center">
+                <div class="col ml-3">@ViewData["Topics"]</div>
+                <div class="col-4 text-muted">
+                    <div class="row no-gutters align-items-center">
+                        <div class="col-4">@ViewData["Replies"]</div>
+                        <div class="col-8">@ViewData["Author"]</div>
                     </div>
                 </div>
             </div>
-            @foreach (var post in Model.AllPosts)
-            {
-                <div class="card-body py-3">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col">
-                            <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id" class="text-big" data-abc="true">@post.Title</a>
-                            <div class="text-muted small mt-1">@(DateTime.Now.Day - post.DatePosted.Day) @ViewData["DaysAgo"] &nbsp;·&nbsp; <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted" data-abc="true">@post.Author</a></div>
-                        </div>
-                        <div class="d-none d-md-block col-4">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col-4">@post.RepliesCount</div>
-                                <div class="media col-8 align-items-center">
-                                    <img src="@post.AuthorProfileImage" alt="" class="d-block ui-w-30 rounded-circle w-25 h-25">
-                                    <div class="media-body flex-truncate ml-2">
-                                        <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted small text-truncate" data-abc="true">@ViewData["By"] @post.Author</a>
-                                    </div>
+        </div>
+        @foreach (var post in Model.AllPosts)
+        {
+            <div class="card-body py-3">
+                <div class="row no-gutters align-items-center">
+                    <div class="col">
+                        <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id" class="text-big" data-abc="true">@post.Title</a>
+                        <div class="text-muted small mt-1">@(DateTime.Now.Day - post.DatePosted.Day) @ViewData["DaysAgo"] &nbsp;·&nbsp; <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted" data-abc="true">@post.Author</a></div>
+                    </div>
+                    <div class="d-none d-md-block col-4">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-4">@post.RepliesCount</div>
+                            <div class="media col-8 align-items-center">
+                                <img src="@post.AuthorProfileImage" alt="" class="d-block ui-w-30 rounded-circle w-25 h-25">
+                                <div class="media-body flex-truncate ml-2">
+                                    <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted small text-truncate" data-abc="true">@ViewData["By"] @post.Author</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <hr class="m-0">
-            }
             </div>
-        <nav>
-            <ul class="pagination">
-                @for (int i = 0; i < Model.NumberOfPages; i++)
-                {
-                    <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
-                }
-            </ul>
-        </nav>
+            <hr class="m-0">
+        }
     </div>
+    <nav>
+        <ul class="pagination">
+            @for (int i = 0; i < Model.NumberOfPages; i++)
+            {
+                <li class="page-item"><a class="page-link" asp-controller="Home" asp-action="Index" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+            }
+        </ul>
+    </nav>
+</div>
 
