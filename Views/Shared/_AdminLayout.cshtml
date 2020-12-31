@@ -1,0 +1,24 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    @RenderSection("Scripts", required: false)
+}
+
+<div class="container-fluid bg-white">
+
+    <h1>Admin Panel</h1>
+    <div class="row">
+        <div class="col-md-2 align-self-center">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item list"><a asp-controller="Admin" asp-action="Users" class="nav-link btn btn-success">Users</a></li>
+                <li class="nav-item list"><a asp-controller="Admin" asp-action="Posts" class="nav-link btn btn-success">Posts</a></li>
+                <li class="nav-item list"><a asp-controller="Admin" asp-action="PostReplies" class="nav-link btn btn-success">Post Replies</a></li>
+                <li class="nav-item list"><a asp-controller="Admin" asp-action="Roles" class="nav-link btn btn-success">Roles</a></li>
+            </ul>
+        </div>
+        <div class="col-md-10">
+            @RenderBody()
+        </div>
+    </div>
+</div>

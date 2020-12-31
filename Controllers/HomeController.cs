@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.Extensions.Logging;
 using myiotprojects.Models;
 using System;
@@ -12,17 +13,24 @@ namespace myiotprojects.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IPost _postService;
+        private readonly IHtmlLocalizer<HomeController> _localizer;
 
-        public HomeController(ILogger<HomeController> logger, IPost postService)
+        public HomeController(IPost postService, IHtmlLocalizer<HomeController> localizer)
         {
-            _logger = logger;
             _postService = postService;
+            _localizer = localizer;
         }
 
         public IActionResult Index(int page = 1)
         {
+            ViewData["NewThread"] = _localizer["NewThread"];
+            ViewData["DaysAgo"] = _localizer["DaysAgo"];
+            ViewData["Topics"] = _localizer["Topics"];
+            ViewData["Replies"] = _localizer["Replies"];
+            ViewData["Author"] = _localizer["Author"];
+            ViewData["Search"] = _localizer["Search"];
+            ViewData["By"] = _localizer["By"];
             var model = BuildHomeIndex(page);
             return View(model);
         }

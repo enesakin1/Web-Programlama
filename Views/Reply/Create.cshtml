@@ -2,17 +2,17 @@
 
 <div class="container body-content">
     <div class="row sectionHeader">
-        <span class="btn bg-white"><a class="backtoPost" asp-controller="Post" asp-action="Index" asp-route-id="@Model.PostId">Back to Post</a></span>
+        <span class="btn bg-white"><a class="backtoPost" asp-controller="Post" asp-action="Index" asp-route-id="@Model.PostId">@ViewData["BackToPost"]</a></span>
     </div>
         <div class="createReply">
             <form asp-action="AddReply" method="post" id="addPostForm">
                 <div asp-validation-summary="All" class="text-danger"></div>
                 <div class="form-group">
-                    <label class="reply" asp-for="ReplyContent">Reply: </label>
-                    <textarea asp-for="ReplyContent" rows="20" class="form-control" placeholder="Your reply"></textarea>
+                    <label class="reply" asp-for="ReplyContent">@ViewData["Reply"]: </label>
+                    <textarea asp-for="ReplyContent" rows="20" class="form-control"></textarea>
                     <span asp-validation-for="ReplyContent" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn submitReplyBtn">Submit Reply</button>
+                <button type="submit" class="btn submitReplyBtn">@ViewData["SubmitReply"]</button>
                 <input asp-for="AuthorId" type="hidden" />
                 <input asp-for="PostId" type="hidden" />
             </form>

@@ -1,17 +1,17 @@
 ﻿@model myiotprojects.Models.SearchResultModel
 
-<div>
-    <div class="container-fluid mt-100">
+<div class="container">
+    <div class="mt-100">
         <div class="d-flex flex-wrap justify-content-between">
             <div class="col-12 col-md-3 p-0 mb-3">
                 <form asp-controller="Search" asp-action="Search" method="post">
-                    <input asp-for="SearchQuery" type="text" class="form-control" placeholder="Search..." required>
+                    <input asp-for="SearchQuery" type="text" class="form-control" placeholder="@ViewData["Search"]..." required>
                 </form>
             </div>
         </div>
     </div>
     <div class="searchQuery">
-        <span class="resultFor">Search Results For: @Model.SearchQuery </span>
+        <span class="resultFor">@ViewData["SearchResultsFor"]: @Model.SearchQuery </span>
     </div>
     <div class="row index" style="margin-top:8px;">
         @if (!Model.EmptySearchResults)
@@ -39,7 +39,7 @@
                             </td>
                             <td>
                                 <div class="forumPostCount">
-                                    Replies: @post.RepliesCount
+                                    @ViewData["Replies"]: @post.RepliesCount
                                 </div>
                             </td>
                             <td>
@@ -58,7 +58,7 @@
             <div class="noPosts">
                 <i class="material-icons md-72">question_answer</i>
                 <h3>
-                    There is no result found for "@Model.SearchQuery" <br />
+                    @ViewData["Thereisnoresultfoundfor"] "@Model.SearchQuery" <br />
                 </h3>
             </div>
         }

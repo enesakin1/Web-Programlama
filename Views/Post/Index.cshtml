@@ -1,7 +1,7 @@
 ﻿@model myiotprojects.Models.PostIndexModel
     <div class="container bg-white">
         <div class="postTitle">
-            <a class="" style="font-size: x-large;">@Model.Title</a>
+            <a style="font-size: x-large;">@Model.Title</a>
         </div>
         <div class="row index">
             <div class="col-md-3">
@@ -54,7 +54,7 @@
             <div class="row">
                 <span>
                     <a asp-controller="Reply" asp-action="Create" asp-route-id="@Model.Id" class="btn submitReply">
-                        Post Reply
+                        @ViewData["PostReply"]
                     </a>
                 </span>
             </div>

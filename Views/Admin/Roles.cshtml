@@ -1,0 +1,84 @@
+﻿@model myiotprojects.Models.Admin.RoleIndexModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Scripts{
+    <script>
+        $('#deleteRoleModal').on('show.bs.modal', function (e) {
+
+            //get data-id attribute of the clicked element
+            var roleId = $(e.relatedTarget).data('roleid');
+
+            //populate the textbox
+            $(e.currentTarget).find('input[name="roleid"]').val(roleId);
+        });
+    </script>
+}
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>@ViewData["Manage"] <b>@ViewData["Posts"]</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <form asp-controller="Admin" asp-action="CreateRole" method="get">
+                            <button type="submit" class="btn btn-success" data-toggle="modal"><i class="material-icons">&#xE147;</i> <span>@ViewData["Create"] @ViewData["Role"]</span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>@ViewData["Name"]</th>
+                        <th>@ViewData["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var role in Model.AllRoles)
+                    {
+                        <tr>
+                            <td>@role.Name</td>
+                            <td>
+                                <a asp-controller="Admin" asp-action="RoleEdit" asp-route-roleid="@role.Id" class="edit"><i class="material-icons" title="@ViewData["Edit"]">&#xE254;</i></a>
+                                <a data-roleid="@role.Id" href="#deleteRoleModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="@ViewData["Delete"]">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <ul class="pagination">
+                    @for (int i = 0; i < Model.NumberOfPages; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-controller="Admin" asp-action="Roles" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteRoleModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="RoleDelete" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>@ViewData["Sure"]</p>
+                    <p class="text-warning"><small>@ViewData["Undone"]</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="@ViewData["Cancel"]">
+                    <input hidden name="roleid" id="roleid" value="" />
+                    <input type="submit" class="btn btn-danger" value="@ViewData["Delete"]">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

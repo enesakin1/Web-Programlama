@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using myiotprojects.Areas.Identity.Data;
 using myiotprojects.Models;
 using System;
@@ -14,13 +15,16 @@ namespace myiotprojects.Controllers
     {
         private readonly IPost _postService;
         private readonly UserManager<AppUser> _userManager;
-        public PostController(IPost postService, UserManager<AppUser> userManager)
+        private readonly IHtmlLocalizer<PostController> _localizer;
+        public PostController(IPost postService, UserManager<AppUser> userManager, IHtmlLocalizer<PostController> localizer)
         {
             _postService = postService;
             _userManager = userManager;
+            _localizer = localizer;
         }
         public IActionResult Index(int id, int page = 1)
         {
+            ViewData["PostReply"] = _localizer["PostReply"];
             var post = _postService.GetById(id);
             var replies = BuildPostReplies(post.Replies, page);
 
@@ -51,6 +55,9 @@ namespace myiotprojects.Controllers
         [HttpGet]
         public IActionResult Create()
         {
+            ViewData["SubmitPost"] = _localizer["SubmitPost"];
+            ViewData["Title"] = _localizer["Title"];
+            ViewData["Content"] = _localizer["Content"];
             var model = new NewPostModel
             {
                 AuthorName = User.Identity.Name
@@ -61,6 +68,9 @@ namespace myiotprojects.Controllers
         [HttpPost]
         public IActionResult Create(NewPostModel invalidModel)
         {
+            ViewData["SubmitPost"] = _localizer["SubmitPost"];
+            ViewData["Title"] = _localizer["Title"];
+            ViewData["Content"] = _localizer["Content"];
             return View(invalidModel);
         }
         [Authorize]
@@ -75,6 +85,9 @@ namespace myiotprojects.Controllers
                 _postService.Add(post).Wait();
                 return RedirectToAction("Index", "Post", new { id = post.Id });
             }
+            ViewData["SubmitPost"] = _localizer["SubmitPost"];
+            ViewData["Title"] = _localizer["Title"];
+            ViewData["Content"] = _localizer["Content"];
             return View("Create",model);
 
         }

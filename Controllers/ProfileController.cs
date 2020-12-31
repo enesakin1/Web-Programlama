@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using myiotprojects.Areas.Identity.Data;
 using myiotprojects.Models;
 using System;
@@ -16,51 +17,27 @@ namespace myiotprojects.Controllers
     {
         private readonly IUser _userService;
         private readonly IPost _postService;
-        private readonly UserManager<AppUser> _userManager;
+        private readonly IHtmlLocalizer<ProfileController> _localizer;
 
-        public ProfileController(UserManager<AppUser> userManager, IUser userService, IPost postService)
+        public ProfileController(UserManager<AppUser> userManager, IUser userService, IPost postService, IHtmlLocalizer<ProfileController> localizer)
         {
-            _userManager = userManager;
             _userService = userService;
             _postService = postService;
-        }
-        [Authorize]
-        [HttpPost]
-        public IActionResult ChangePassword(ChangePasswordModel passmodel)
-        {
-            var userId = _userManager.GetUserId(User);
-            var user = _userService.GetById(userId);
-            var posts = _postService.GetUserPosts(userId);
-            var model = new ProfileModel()
-            {
-                UserId = user.Id,
-                UserName = user.Nickname,
-                Email = user.Email,
-                ProfileImageUrl = user.ProfileImageUrl,
-                AllPosts = posts,
-                ProfileCreated = user.Created,
-                ChangePasswordModel = passmodel
-            };
-            if (ModelState.IsValid)
-            {
-               var changePasswordResult = _userService.ChangePassword(userId, passmodel);
-               
-                if (!changePasswordResult.IsCompleted)
-                {
-                    foreach (var error in changePasswordResult.Result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-                return View("Detail", model);
-            }
-            return View("Detail", model);
-
+            _localizer = localizer;
         }
         public IActionResult Detail(string id)
         {
+            ViewData["Settings"] = _localizer["Settings"];
+            ViewData["MemberSince"] = _localizer["MemberSince"];
+            ViewData["Last"] = _localizer["Last"];
+            ViewData["Posts"] = _localizer["Posts"];
+            ViewData["Replies"] = _localizer["Replies"];
+            ViewData["AddProfileImage"] = _localizer["AddProfileImage"];
+            ViewData["Submit"] = _localizer["Submit"];
+            ViewData["Cancel"] = _localizer["Cancel"];
+
             var user = _userService.GetById(id);
-            var posts = _postService.GetUserPosts(id);
+            var posts = _postService.GetUserPostsForProfile(id);
             var model = new ProfileModel()
             {
                 UserId = user.Id,
@@ -71,6 +48,12 @@ namespace myiotprojects.Controllers
                 ProfileCreated = user.Created
             };
             return View(model);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddPhoto(string userid, string photourl)
+        {
+            await _userService.AddPhoto(userid, photourl);
+            return RedirectToAction("Detail", new { id = userid });
         }
     }
 }

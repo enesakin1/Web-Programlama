@@ -1,0 +1,64 @@
+﻿@model myiotprojects.Models.Admin.UserRoleModel
+@section Scripts{
+    <script>
+        function adGroupSelected(e){
+        location.href = "/full_url?Group=" + e.selectedOptions[0].value;
+        }
+    </script>
+}
+<div class="container bg-white">
+    <form asp-controller="Admin" asp-action="UserRoleAdd" asp-route-userid="@Model.user.UserId"  data-ajax="true"
+      data-ajax-method="Post"
+      data-ajax-update="UserRoleCreate"
+      data_ajax_mode="replace">
+        <div class="card-header">
+            <h4 class="modal-title">@ViewData["Add"] @ViewData["Role"]</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <select class="form-control" name="roleName" >
+                    @{
+                        if (Model.roles != null)
+                        {
+                            foreach (var item in Model.roles)
+                            {
+                                <option>
+                                    @item.Name
+                                </option>
+                            }
+                        }
+
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-success" value="@ViewData["Save"]">
+        </div>
+    </form>
+    <form asp-controller="Admin" asp-action="UserRoleDelete" asp-route-userid="@Model.user.UserId">
+        <div class="card-header">
+            <h4 class="modal-title">@ViewData["Delete"] @ViewData["Role"]</h4>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <select name="roleName" class="form-control">
+                    @{
+                        if (Model.user.Roles.Any())
+                        {
+                            foreach (var item in Model.user.Roles)
+                            {
+                                <option>
+                                    @item.Name
+                                </option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-danger" value="@ViewData["Delete"]">
+        </div>
+    </form>
+</div>

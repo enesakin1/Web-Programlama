@@ -1,0 +1,87 @@
+﻿@model myiotprojects.Models.Admin.AdminPostIndexModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Scripts{
+    <script>
+        $('#deletePostModal').on('show.bs.modal', function (e) {
+
+            //get data-id attribute of the clicked element
+            var postId = $(e.relatedTarget).data('postid');
+
+            //populate the textbox
+            $(e.currentTarget).find('input[name="postid"]').val(postId);
+        });
+    </script>
+}
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>@ViewData["Manage"] <b>@ViewData["Posts"]</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>@ViewData["Title"]</th>
+                        <th>@ViewData["Author"]</th>
+                        <th>@ViewData["Created"]</th>
+                        <th>@ViewData["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var post in Model.AllPosts)
+                    {
+                    <tr>
+                        <td>
+                            <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id">@post.Title</a>
+                        </td>
+                        <td>@post.Author</td>
+                        <td>@post.DatePosted</td>
+                        <td>
+                            <a asp-controller="Admin" asp-action="PostEdit" asp-route-postid="@post.Id" class="edit"><i class="material-icons" title="@ViewData["Edit"]">&#xE254;</i></a>
+                            <a data-postid="@post.Id" href="#deletePostModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="@ViewData["Delete"]">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <ul class="pagination">
+                    @for (int i = 0; i < Model.NumberOfPages; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-controller="Admin" asp-action="Posts" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deletePostModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="PostDelete" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">Delete User</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>@ViewData["Sure"]</p>
+                    <p class="text-warning"><small>@ViewData["Undone"]</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="@ViewData["Cancel"]">
+                    <input hidden name="postid" id="postid" value="" />
+                    <input type="submit" class="btn btn-danger" value="@ViewData["Delete"]">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

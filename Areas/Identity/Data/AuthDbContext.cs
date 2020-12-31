@@ -16,6 +16,11 @@ namespace myiotprojects.Data
             : base(options)
         {
         }
+
+        public AuthDbContext()
+        {
+        }
+
         public DbSet<Post> Posts { get; set; }
         public DbSet<PostReply> PostReplies { get; set; }
 

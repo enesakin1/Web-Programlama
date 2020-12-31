@@ -13,6 +13,5 @@ namespace myiotprojects.Models
         public string ProfileImageUrl { get; set; }
         public DateTime ProfileCreated { get; set; }
         public IEnumerable<Post> AllPosts { get; set; }
-        public ChangePasswordModel ChangePasswordModel { get; set; }
     }
 }

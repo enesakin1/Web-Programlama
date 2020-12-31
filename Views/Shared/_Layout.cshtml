@@ -16,23 +16,27 @@
     <header>
             <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-transparent border-bottom box-shadow mb-3">
                 <div class="container">
-                    <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <a asp-controller="Home" asp-action="Index">
                         <img style="width:55%" class="navbar-brand justify-content-lg-start" src="~/images/logo.png" />
                     </a>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <a class="form-inline text-dark bg-white" asp-controller="Admin" asp-action="Index">
+                            Admin Panel
+                        </a>
+                    }
+
                 </div>
                 <div class="container">
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <partial name="_LoginPartial.cshtml" />
-
                     </div>
                 </div>
             </nav>
     </header>
-    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
-    </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">

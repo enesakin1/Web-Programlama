@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using myiotprojects.Areas.Identity.Data;
 using myiotprojects.Models;
 using System;
@@ -15,15 +16,20 @@ namespace myiotprojects.Controllers
     {
         private readonly IPost _postService;
         private static UserManager<AppUser> _userManager;
+        private readonly IHtmlLocalizer<ReplyController> _localizer;
 
-        public ReplyController(IPost postService, UserManager<AppUser> userManager)
+        public ReplyController(IPost postService, UserManager<AppUser> userManager, IHtmlLocalizer<ReplyController> localizer)
         {
             _postService = postService;
             _userManager = userManager;
+            _localizer = localizer;
         }
         [HttpGet]
         public async Task<IActionResult> Create(int id)
         {
+            ViewData["BackToPost"] = _localizer["BackToPost"];
+            ViewData["Reply"] = _localizer["Reply"];
+            ViewData["SubmitReply"] = _localizer["SubmitReply"];
             var post = _postService.GetById(id);
 
             var user = await _userManager.FindByNameAsync(User.Identity.Name);

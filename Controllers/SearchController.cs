@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using myiotprojects.Models;
 using System;
 using System.Collections.Generic;
@@ -10,14 +11,20 @@ namespace myiotprojects.Controllers
     public class SearchController : Controller
     {
         private readonly IPost _postService;
+        private readonly IHtmlLocalizer<SearchController> _localizer;
 
-        public SearchController(IPost postService)
+        public SearchController(IPost postService,IHtmlLocalizer<SearchController> localizer)
         {
             _postService = postService;
+            _localizer = localizer;
         }
 
         public IActionResult Results(string searchQuery, int page = 1)
         {
+            ViewData["SearchResultsFor"] = _localizer["SearchResultsFor"];
+            ViewData["Replies"] = _localizer["Replies"];
+            ViewData["Search"] = _localizer["Search"];
+            ViewData["Thereisnoresultfoundfor"] = _localizer["Thereisnoresultfoundfor"];
             var allPosts = _postService.GetAllFilteredPosts(searchQuery);
             var posts = _postService.GetFilteredPosts(searchQuery, page);
             var areNoResults = !posts.Any();

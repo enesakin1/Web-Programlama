@@ -1,0 +1,90 @@
+﻿@model myiotprojects.Models.Admin.ReplyIndexModel
+@{
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@section Scripts{
+    <script>
+        $('#deleteReplyModal').on('show.bs.modal', function (e) {
+
+            //get data-id attribute of the clicked element
+            var replyId = $(e.relatedTarget).data('replyid');
+
+            //populate the textbox
+            $(e.currentTarget).find('input[name="replyid"]').val(replyId);
+        });
+    </script>
+}
+<div class="container-xl">
+    <div class="table-responsive">
+        <div class="table-wrapper">
+            <div class="table-title">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <h2>@ViewData["Manage"] <b>@ViewData["Replies"]</b></h2>
+                    </div>
+                    <div class="col-sm-6">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>@ViewData["Author"]</th>
+                        <th>@ViewData["Post"] @ViewData["Title"]</th>
+                        <th>@ViewData["Created"]</th>
+                        <th>@ViewData["Actions"]</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var reply in Model.AllReplies)
+                    {
+                    <tr>
+
+                        <td>@reply.Id</td>
+                        <td>@reply.User.Nickname</td>
+                        <td>
+                            <a asp-controller="Post" asp-action="Index" asp-route-id="@reply.Post.Id">@reply.Post.Title</a>
+                        </td>
+                        <td>@reply.Created</td>
+                        <td>
+                            <a asp-controller="Admin" asp-action="ReplyEdit" asp-route-replyid="@reply.Id" class="edit"><i class="material-icons" title="@ViewData["Edit"]">&#xE254;</i></a>
+                            <a data-replyid="@reply.Id" href="#deleteReplyModal" class="delete" data-toggle="modal"><i class="material-icons" data-toggle="tooltip" title="@ViewData["Delete"]">&#xE872;</i></a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="clearfix">
+                <ul class="pagination">
+                    @for (int i = 0; i < Model.NumberOfPages; i++)
+                    {
+                        <li class="page-item"><a class="page-link" asp-controller="Admin" asp-action="PostReplies" asp-route-page="@(i + 1)" data-abc="true">[@(i + 1)]</a></li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Delete Modal HTML -->
+<div id="deleteReplyModal" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="ReplyDelete" method="post">
+                <div class="modal-header">
+                    <h4 class="modal-title">@ViewData["Delete"] @ViewData["User"]</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>@ViewData["Sure"]</p>
+                    <p class="text-warning"><small>@ViewData["Undone"]</small></p>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-default" data-dismiss="modal" value="@ViewData["Cancel"]">
+                    <input hidden name="replyid" id="replyid" value="" />
+                    <input type="submit" class="btn btn-danger" value="@ViewData["Delete"]">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

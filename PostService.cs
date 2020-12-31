@@ -28,16 +28,6 @@ namespace myiotprojects
             await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task EditPostContent(int id, string newContent)
-        {
-            throw new NotImplementedException();
-        }
-
         public IEnumerable<Post> GetAllWithPage(int page)
         {
             return _context.Posts.OrderByDescending(post => post.Created).Skip((page - 1) * 10).Take(10).Include(post => post.User)
@@ -82,9 +72,63 @@ namespace myiotprojects
             return GetAll().Where(post => post.Title.Contains(searchQuery) || post.Content.Contains(searchQuery)).Count();
         }
 
-        public IEnumerable<Post> GetUserPosts(string id)
+        public List<Post> GetUserPosts(string id)
+        {
+            return _context.Posts.Include(post => post.User).Where(post => post.User.Id == id).Include(post => post.Replies).ToList();
+        }
+
+        public async Task Delete(int id)
+        {
+            var post = GetById(id);
+             _context.Remove(post);
+           await _context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Post> GetUserPostsForProfile(string id)
         {
             return _context.Posts.Include(post => post.User).Where(post => post.User.Id == id).OrderByDescending(post => post.Created).Take(10).Include(post => post.Replies);
         }
+
+        public async Task DeleteReply(int id)
+        {
+            var reply = GetReplyById(id);
+            _context.Remove(reply);
+            await _context.SaveChangesAsync();
+        }
+
+        public PostReply GetReplyById(int id)
+        {
+            return _context.PostReplies.Where(reply => reply.Id == id)
+                 .FirstOrDefault();
+        }
+
+        public List<PostReply> GetAllUserReplies(string id)
+        {
+            return _context.PostReplies.Where(reply => reply.User.Id == id).ToList();
+        }
+
+        public async Task UpdatePost(Post model)
+        {
+            _context.Posts.Update(model);
+            await _context.SaveChangesAsync();
+        }
+
+        public List<PostReply> GetAllReplies()
+        {
+            return _context.PostReplies.ToList();
+        }
+
+        public List<PostReply> GetAllRepliesWithPage(int page)
+        {
+            return _context.PostReplies.Skip((page - 1) * 10).Take(10).Include(reply => reply.User)
+                .Include(reply => reply.Post).ToList();
+        }
+
+        public async Task UpdateReply(PostReply model)
+        {
+            _context.PostReplies.Update(model);
+            await _context.SaveChangesAsync();
+        }
+
     }
 }
