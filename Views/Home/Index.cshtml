@@ -37,7 +37,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col">
                         <a asp-controller="Post" asp-action="Index" asp-route-id="@post.Id" class="text-big" data-abc="true">@post.Title</a>
-                        <div class="text-muted small mt-1">@(DateTime.Now.Day - post.DatePosted.Day) @ViewData["DaysAgo"] &nbsp;·&nbsp; <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted" data-abc="true">@post.Author</a></div>
+                        <div class="text-muted small mt-1">@((DateTime.Now - post.DatePosted).Days) @ViewData["DaysAgo"] &nbsp;·&nbsp; <a asp-controller="Profile" asp-action="Detail" asp-route-id="@post.AuthorID" class="text-muted" data-abc="true">@post.Author</a></div>
                     </div>
                     <div class="d-none d-md-block col-4">
                         <div class="row no-gutters align-items-center">
