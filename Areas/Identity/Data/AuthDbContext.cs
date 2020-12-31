@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using myiotprojects.Areas.Identity.Data;
+using myiotprojects.Models;
 
 namespace myiotprojects.Data
 {
@@ -15,6 +16,8 @@ namespace myiotprojects.Data
             : base(options)
         {
         }
+        public DbSet<Post> Posts { get; set; }
+        public DbSet<PostReply> PostReplies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

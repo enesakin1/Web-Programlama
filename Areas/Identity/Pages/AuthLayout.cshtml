@@ -7,18 +7,21 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
+<body class="bodysign">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light box-shadow mb-3">
+            <div class="container justify-content-center align-items-center">
+                <a asp-area="" asp-controller="Home" asp-action="Index">
+                    <img style="width:55%" class="navbar-brand justify-content-lg-start" src="~/images/logo.png" />
+                </a>
+            </div>
+        </nav>
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2020 - myiotprojects - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

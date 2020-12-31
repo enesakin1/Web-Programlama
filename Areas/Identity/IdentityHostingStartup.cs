@@ -20,7 +20,13 @@ namespace myiotprojects.Areas.Identity
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("AuthDbContextConnection")));
 
-                services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+                services.AddDefaultIdentity<AppUser>(options => {
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequiredLength = 2;
+                    options.SignIn.RequireConfirmedAccount = false;
+                    }).AddRoles<IdentityRole>()
                     .AddEntityFrameworkStores<AuthDbContext>();
             });
         }

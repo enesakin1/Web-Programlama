@@ -52,7 +52,12 @@ namespace myiotprojects.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(20, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Display(Name = "Username")]
+            public string Nickname { get; set; }
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
@@ -65,6 +70,10 @@ namespace myiotprojects.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                Response.Redirect("/");
+            }
             ReturnUrl = returnUrl;
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
@@ -75,7 +84,7 @@ namespace myiotprojects.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = Input.Email, Email = Input.Email };
+                var user = new AppUser { UserName = Input.Email, Email = Input.Email, Nickname = Input.Nickname, ProfileImageUrl = "/images/user/user.png", Created = DateTime.Now };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {

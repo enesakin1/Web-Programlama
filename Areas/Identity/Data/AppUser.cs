@@ -10,5 +10,11 @@ namespace myiotprojects.Areas.Identity.Data
     // Add profile data for application users by adding properties to the AppUser class
     public class AppUser : IdentityUser
     {
+        [PersonalData]
+        [Column(TypeName = "nvarchar(100)")]
+        public string Nickname { get; set; }
+        public string ProfileImageUrl { get; set; }
+        public bool IsActive { get; set; }
+        public DateTime Created { get; set; }
     }
 }
