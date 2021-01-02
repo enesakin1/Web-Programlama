@@ -37,20 +37,20 @@ namespace myiotprojects
             }
         }
 
-        public async Task<IdentityResult> ChangePassword(string id, ChangePasswordModel passwordModel)
-        {
-            var user = GetById(id);
-            return await _userManager.ChangePasswordAsync(user, passwordModel.OldPassword, passwordModel.NewPassword);
-        }
-
         public async Task CreateRole(string name)
         {
-            await _roleManager.CreateAsync(new IdentityRole(name));
+            if(!string.IsNullOrEmpty(name))
+            {
+                await _roleManager.CreateAsync(new IdentityRole(name));
+            }
         }
 
         public async Task CreateUser(AppUser user, string password)
         {
-            await _userManager.CreateAsync(user,password);
+            if(!string.IsNullOrEmpty(user.UserName) && !string.IsNullOrEmpty(user.Nickname) )
+            {
+                await _userManager.CreateAsync(user, password);
+            }
         }
 
         public async Task DeleteRole(IdentityRole role)
@@ -127,7 +127,10 @@ namespace myiotprojects
 
         public async Task UpdateRole(IdentityRole model)
         {
-            await _roleManager.UpdateAsync(model);
+            if(!string.IsNullOrEmpty(model.Name))
+            {
+                await _roleManager.UpdateAsync(model);
+            }
         }
 
         public async Task UpdateUser(UserModel model)
@@ -144,14 +147,20 @@ namespace myiotprojects
 
         public async Task UserRoleAdd(string userid, string roleName)
         {
-            var user = GetById(userid);
-            await _userManager.AddToRoleAsync(user,roleName);
+            if(!string.IsNullOrEmpty(roleName))
+            {
+                var user = GetById(userid);
+                await _userManager.AddToRoleAsync(user, roleName);
+            }
         }
 
         public async Task UserRoleDelete(string userid, string roleName)
         {
-            var user = GetById(userid);
-            await _userManager.RemoveFromRoleAsync(user, roleName);
+            if(!string.IsNullOrEmpty(roleName))
+            {
+                var user = GetById(userid);
+                await _userManager.RemoveFromRoleAsync(user, roleName);
+            }
         }
     }
 }

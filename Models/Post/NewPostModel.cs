@@ -9,11 +9,11 @@ namespace myiotprojects.Models
     public class NewPostModel
     {
         public string AuthorName { get; set; }
-        [Required]
-        [MinLength(8, ErrorMessage = "Minimum number of characters that can be entered is 8!")]
+        [Required(ErrorMessageResourceName = "TitleRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+        [MinLength(8, ErrorMessageResourceName = "TitleValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
         public string Title { get; set; }
-        [Required]
-        [MinLength(40, ErrorMessage = "Minimum number of characters that can be entered is 40!")]
+        [Required(ErrorMessageResourceName = "ContentRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+        [MinLength(40, ErrorMessageResourceName = "PostContentValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
         public string Content { get; set; }
     }
 }

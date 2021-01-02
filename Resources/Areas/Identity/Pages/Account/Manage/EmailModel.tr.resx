@@ -117,46 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Compare" xml:space="preserve">
-    <value>Passwords do not match.</value>
+  <data name="Changed" xml:space="preserve">
+    <value>Emailiniz başarıyla değiştirildi!</value>
   </data>
-  <data name="ConfirmPasswordValidation" xml:space="preserve">
-    <value>The password and confirmation password do not match.</value>
-  </data>
-  <data name="ContentRequired" xml:space="preserve">
-    <value>Content can't be empty.</value>
-  </data>
-  <data name="ContentValidation" xml:space="preserve">
-    <value>Content must be at least 16 characters.</value>
-  </data>
-  <data name="EmailRequired" xml:space="preserve">
-    <value>Email must be entered</value>
-  </data>
-  <data name="EmailType" xml:space="preserve">
-    <value>Input must be email</value>
-  </data>
-  <data name="PasswordRequired" xml:space="preserve">
-    <value>Password must be entered</value>
-  </data>
-  <data name="PasswordValidation" xml:space="preserve">
-    <value>The {0} must be at least {2} and at max {1} characters long.</value>
-  </data>
-  <data name="PostContentValidation" xml:space="preserve">
-    <value>Minimum number of characters for content that can be entered is 40!</value>
-  </data>
-  <data name="RoleRequired" xml:space="preserve">
-    <value>Role name can't be empty.</value>
-  </data>
-  <data name="TitleRequired" xml:space="preserve">
-    <value>Title can't be empty.</value>
-  </data>
-  <data name="TitleValidation" xml:space="preserve">
-    <value>Minimum number of characters for title that can be entered is 8!</value>
-  </data>
-  <data name="UsernameRequired" xml:space="preserve">
-    <value>Username must be entered</value>
-  </data>
-  <data name="UsernameValidation" xml:space="preserve">
-    <value>The {0} must be at least {2} and at max {1} characters long.</value>
+  <data name="Unchanged" xml:space="preserve">
+    <value>Emailiniz değiştirilmedi.</value>
   </data>
 </root>

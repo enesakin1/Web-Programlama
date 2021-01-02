@@ -61,11 +61,38 @@ namespace myiotprojects.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Passwords do not match..
+        /// </summary>
+        public static string Compare {
+            get {
+                return ResourceManager.GetString("Compare", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The password and confirmation password do not match..
         /// </summary>
         public static string ConfirmPasswordValidation {
             get {
                 return ResourceManager.GetString("ConfirmPasswordValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content can&apos;t be empty..
+        /// </summary>
+        public static string ContentRequired {
+            get {
+                return ResourceManager.GetString("ContentRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Content must be at least 16 characters..
+        /// </summary>
+        public static string ContentValidation {
+            get {
+                return ResourceManager.GetString("ContentValidation", resourceCulture);
             }
         }
         
@@ -102,6 +129,42 @@ namespace myiotprojects.Resources {
         public static string PasswordValidation {
             get {
                 return ResourceManager.GetString("PasswordValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum number of characters for content that can be entered is 40!.
+        /// </summary>
+        public static string PostContentValidation {
+            get {
+                return ResourceManager.GetString("PostContentValidation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Role name can&apos;t be empty..
+        /// </summary>
+        public static string RoleRequired {
+            get {
+                return ResourceManager.GetString("RoleRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Title can&apos;t be empty..
+        /// </summary>
+        public static string TitleRequired {
+            get {
+                return ResourceManager.GetString("TitleRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Minimum number of characters for title that can be entered is 8!.
+        /// </summary>
+        public static string TitleValidation {
+            get {
+                return ResourceManager.GetString("TitleValidation", resourceCulture);
             }
         }
         

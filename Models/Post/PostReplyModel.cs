@@ -13,8 +13,8 @@ namespace myiotprojects.Models
         public string AuthorName { get; set; }
         public string AuthorImageUrl { get; set; }
         public DateTime Created { get; set; }
-        [Required]
-        [MinLength(16, ErrorMessage = "Minimum number of characters that can be entered is 16!")]
+        [Required(ErrorMessageResourceName = "ContentRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+        [MinLength(16, ErrorMessageResourceName = "ContentValidation", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
         public string ReplyContent { get; set; }
         public int PostId { get; set; }
         public bool IsAuthorAdmin { get; set; }

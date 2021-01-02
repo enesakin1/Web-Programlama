@@ -95,8 +95,17 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UserEdit(UserModel model)
         {
-            await _userService.UpdateUser(model);
-            return RedirectToAction("Users");
+            ViewData["Edit"] = _localizer["Manage"];
+            ViewData["User"] = _localizer["User"];
+            ViewData["Nickname"] = _localizer["Nickname"];
+            ViewData["Save"] = _localizer["Save"];
+            ViewData["ProfileImageUrl"] = _localizer["ProfileImageUrl"];
+            if (ModelState.IsValid)
+            {
+                await _userService.UpdateUser(model);
+                return RedirectToAction("Users");
+            }
+            return View(model);
         }
         [HttpPost]
 
@@ -135,22 +144,31 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateUser(UserModel user)
         {
-            if (user.ProfileImageUrl == null)
+            ViewData["Nickname"] = _localizer["Nickname"];
+            ViewData["Password"] = _localizer["Password"];
+            ViewData["Create"] = _localizer["Create"];
+            ViewData["User"] = _localizer["User"];
+            ViewData["Save"] = _localizer["Save"];
+            if (ModelState.IsValid)
             {
-                user.ProfileImageUrl = "/images/user/user.png";
-            }
-            AppUser newuser = new AppUser
-            {
-                Email = user.Email,
-                Nickname = user.Nickname,
-                UserName = user.Email,
-                NormalizedUserName = user.Email.ToUpper(),
-                NormalizedEmail = user.Email.ToUpper(),
-                ProfileImageUrl = user.ProfileImageUrl
-            };
+                if (user.ProfileImageUrl == null)
+                {
+                    user.ProfileImageUrl = "/images/user/user.png";
+                }
+                AppUser newuser = new AppUser
+                {
+                    Email = user.Email,
+                    Nickname = user.Nickname,
+                    UserName = user.Email,
+                    NormalizedUserName = user.Email.ToUpper(),
+                    NormalizedEmail = user.Email.ToUpper(),
+                    ProfileImageUrl = user.ProfileImageUrl
+                };
 
-            await _userService.CreateUser(newuser, user.Password);
-            return RedirectToAction("Users");
+                await _userService.CreateUser(newuser, user.Password);
+                return RedirectToAction("Users");
+            }
+            return View(user);
         }
         public ActionResult Posts(int page = 1)
         {
@@ -212,11 +230,20 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> PostEdit(Post model)
         {
-            var post = _postService.GetById(model.Id);
-            post.Title = model.Title;
-            post.Content = model.Content;
-            await _postService.UpdatePost(post);
-            return RedirectToAction("Posts");
+            ViewData["Title"] = _localizer["Title"];
+            ViewData["Content"] = _localizer["Content"];
+            ViewData["Edit"] = _localizer["Edit"];
+            ViewData["Save"] = _localizer["Save"];
+            ViewData["Post"] = _localizer["Post"];
+            if (ModelState.IsValid)
+            {
+                var post = _postService.GetById(model.Id);
+                post.Title = model.Title;
+                post.Content = model.Content;
+                await _postService.UpdatePost(post);
+                return RedirectToAction("Posts");
+            }
+            return View(model);
         }
         [HttpPost]
 
@@ -272,6 +299,10 @@ namespace myiotprojects.Controllers
         [HttpGet]
         public ActionResult ReplyEdit(int replyid)
         {
+            ViewData["Content"] = _localizer["Content"];
+            ViewData["Edit"] = _localizer["Edit"];
+            ViewData["Reply"] = _localizer["Reply"];
+            ViewData["Save"] = _localizer["Save"];
             var reply = _postService.GetReplyById(replyid);
             return View(reply);
         }
@@ -280,15 +311,18 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> ReplyEdit(PostReply model)
         {
-
             ViewData["Content"] = _localizer["Content"];
             ViewData["Edit"] = _localizer["Edit"];
             ViewData["Reply"] = _localizer["Reply"];
             ViewData["Save"] = _localizer["Save"];
-            var reply = _postService.GetReplyById(model.Id);
-            reply.Content = model.Content;
-            await _postService.UpdateReply(reply);
-            return RedirectToAction("PostReplies");
+            if(ModelState.IsValid)
+            {
+                var reply = _postService.GetReplyById(model.Id);
+                reply.Content = model.Content;
+                await _postService.UpdateReply(reply);
+                return RedirectToAction("PostReplies");
+            }
+            return View(model);
         }
         [HttpPost]
         public async Task<ActionResult> ReplyDelete(int replyid)
@@ -344,8 +378,16 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> CreateRole(Role rol)
         {
-            await _userService.CreateRole(rol.Name);
-            return RedirectToAction("Roles");
+            ViewData["Name"] = _localizer["Name"];
+            ViewData["Save"] = _localizer["Save"];
+            ViewData["Create"] = _localizer["Create"];
+            ViewData["Role"] = _localizer["Role"];
+            if (ModelState.IsValid)
+            {
+                await _userService.CreateRole(rol.Name);
+                return RedirectToAction("Roles");
+            }
+            return View(rol);
         }
         [HttpGet]
         public ActionResult RoleEdit(string roleid)
@@ -367,10 +409,18 @@ namespace myiotprojects.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RoleEdit(Role model)
         {
-            var role = _userService.GetRoleById(model.Id);
-            role.Name = model.Name;
-            await _userService.UpdateRole(role);
-            return RedirectToAction("Roles");
+            ViewData["Name"] = _localizer["Name"];
+            ViewData["Save"] = _localizer["Save"];
+            ViewData["Create"] = _localizer["Create"];
+            ViewData["Role"] = _localizer["Role"];
+            if (ModelState.IsValid)
+            {
+                var role = _userService.GetRoleById(model.Id);
+                role.Name = model.Name;
+                await _userService.UpdateRole(role);
+                return RedirectToAction("Roles");
+            }
+            return View(model);
         }
         [HttpPost]
 

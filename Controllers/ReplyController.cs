@@ -47,13 +47,12 @@ namespace myiotprojects.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult Create(PostReplyModel invalidModel)
-        {
-            return View(invalidModel);
-        }
-        [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddReply(PostReplyModel model)
         {
+            ViewData["BackToPost"] = _localizer["BackToPost"];
+            ViewData["Reply"] = _localizer["Reply"];
+            ViewData["SubmitReply"] = _localizer["SubmitReply"];
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);

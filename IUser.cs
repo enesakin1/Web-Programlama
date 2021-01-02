@@ -32,6 +32,5 @@ namespace myiotprojects
         Task DeleteUser(string id);
         Task CreateUser(AppUser user, string password);
 
-        Task<IdentityResult> ChangePassword(string id, ChangePasswordModel passwordModel);
     }
 }

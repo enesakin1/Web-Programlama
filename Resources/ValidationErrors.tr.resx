@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Compare" xml:space="preserve">
+    <value>Parolalarınız eşleşmiyor.</value>
+  </data>
   <data name="ConfirmPasswordValidation" xml:space="preserve">
     <value>Şifre ve tekrar uyuşmuyor.</value>
+  </data>
+  <data name="ContentRequired" xml:space="preserve">
+    <value>İçerik kısmı boş bırakılamaz.</value>
+  </data>
+  <data name="ContentValidation" xml:space="preserve">
+    <value>İçerik kısmı minimum 16 karakter olmalıdır.</value>
   </data>
   <data name="EmailRequired" xml:space="preserve">
     <value>Email girilmesi zorunludur</value>
@@ -131,6 +140,18 @@
   </data>
   <data name="PasswordValidation" xml:space="preserve">
     <value>{0} en az {2} ve en fazla {1} karakter uzunluğunda olmalıdır.</value>
+  </data>
+  <data name="PostContentValidation" xml:space="preserve">
+    <value>İçerik en az 40 karakter içermelidir!</value>
+  </data>
+  <data name="RoleRequired" xml:space="preserve">
+    <value>Rol ismi boş olamaz.</value>
+  </data>
+  <data name="TitleRequired" xml:space="preserve">
+    <value>Başlık boş bırakılamaz.</value>
+  </data>
+  <data name="TitleValidation" xml:space="preserve">
+    <value>Başlık en az 8 karakter içermelidir!</value>
   </data>
   <data name="UsernameRequired" xml:space="preserve">
     <value>Kullanıcı adı girilmelidir</value>

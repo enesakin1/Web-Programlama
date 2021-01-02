@@ -10,9 +10,11 @@ namespace myiotprojects.Models.Admin
     public class UserModel
     {
         public string UserId { get; set; }
+        [Required(ErrorMessageResourceName = "EmailRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
         [Display(Name = "Email")]
         public string Email { get; set; }
         [Display(Name = "Nickname")]
+        [Required(ErrorMessageResourceName = "UsernameRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
         public string Nickname { get; set; }
         public DateTime Created { get; set; }
         [Display(Name = "Profile Image Url")]

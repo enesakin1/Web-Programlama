@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using myiotprojects.Areas.Identity.Data;
+using Microsoft.AspNetCore.Mvc.Localization;
 
 namespace myiotprojects.Areas.Identity.Pages.Account.Manage
 {
@@ -19,15 +20,17 @@ namespace myiotprojects.Areas.Identity.Pages.Account.Manage
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly IHtmlLocalizer<EmailModel> _localizer;
 
         public EmailModel(
             UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IEmailSender emailSender)
+            IEmailSender emailSender, IHtmlLocalizer<EmailModel> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
+            localizer = _localizer;
         }
 
         public string Username { get; set; }
@@ -44,8 +47,8 @@ namespace myiotprojects.Areas.Identity.Pages.Account.Manage
 
         public class InputModel
         {
-            [Required]
-            [EmailAddress]
+            [Required(ErrorMessageResourceName = "EmailRequired", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
+            [EmailAddress(ErrorMessageResourceName = "EmailType", ErrorMessageResourceType = typeof(Resources.ValidationErrors))]
             [Display(Name = "New email")]
             public string NewEmail { get; set; }
         }
@@ -92,23 +95,13 @@ namespace myiotprojects.Areas.Identity.Pages.Account.Manage
             var email = await _userManager.GetEmailAsync(user);
             if (Input.NewEmail != email)
             {
-                var userId = await _userManager.GetUserIdAsync(user);
-                var code = await _userManager.GenerateChangeEmailTokenAsync(user, Input.NewEmail);
-                var callbackUrl = Url.Page(
-                    "/Account/ConfirmEmailChange",
-                    pageHandler: null,
-                    values: new { userId = userId, email = Input.NewEmail, code = code },
-                    protocol: Request.Scheme);
-                await _emailSender.SendEmailAsync(
-                    Input.NewEmail,
-                    "Confirm your email",
-                    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                await _userManager.SetEmailAsync(user, Input.NewEmail);
 
-                StatusMessage = "Confirmation link to change email sent. Please check your email.";
+                StatusMessage = Resources.Areas.Identity.Pages.Account.Manage.EmailModel.Changed;
                 return RedirectToPage();
             }
 
-            StatusMessage = "Your email is unchanged.";
+            StatusMessage = Resources.Areas.Identity.Pages.Account.Manage.EmailModel.Unchanged;
             return RedirectToPage();
         }
 
@@ -125,7 +118,6 @@ namespace myiotprojects.Areas.Identity.Pages.Account.Manage
                 await LoadAsync(user);
                 return Page();
             }
-
             var userId = await _userManager.GetUserIdAsync(user);
             var email = await _userManager.GetEmailAsync(user);
             var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

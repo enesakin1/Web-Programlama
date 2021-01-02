@@ -8,10 +8,12 @@
             <div class="form-group">
                 <label>@ViewData["Post"]</label>
                 <input asp-for="@Model.Title" class="form-control">
+                <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label>@ViewData["Content"]</label>
                 <textarea asp-for="@Model.Content" class="form-control"></textarea>
+                <span asp-validation-for="Content" class="text-danger"></span>
             </div>
         </div>
         <div class="card-footer">
