@@ -1,2 +1,2 @@
 # MyIotProjects
-Forum like website written using ASP.Net Core MVC.
+Forum like website in ASP.Net Core MVC.
